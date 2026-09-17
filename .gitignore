@@ -1,0 +1,12 @@
+.env
+*.env
+*.local
+.env.*
+logins.txt
+**/logins.txt
+*.pem
+*.key
+*.crt
+*.pfx
+*.sqlite
+*.db

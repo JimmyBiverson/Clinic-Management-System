@@ -1,49 +1,58 @@
-# Clinic Management System
+﻿# Clinic Management System
 
 A web-based **Clinic Management System** designed to simplify and organize the daily operations of a clinic or medical facility.
 
 The system helps clinic staff manage patients, doctors, appointments, medical records, billing, and other essential clinic activities from one centralized platform.
 
+## Current frontend status
+
+This repository now includes a hospital-style public frontend that mirrors the live website structure for:
+
+- Home
+- Doctors
+- Doctor profile
+- Department detail
+- About Us
+- Appointment
+- Blog
+- Contact Us
+- Login
+
+The pages are built in Laravel Blade and are ready for replacing placeholder content with the final clinic branding and information.
+
 ## Features
 
 * 👤 **Patient Management**
-
   * Register and manage patient information
   * View patient history and records
   * Update patient details
 
 * 👨‍⚕️ **Doctor Management**
-
   * Manage doctors and staff
   * Assign doctors to patients
   * View doctor information
 
 * 📅 **Appointment Management**
-
   * Schedule appointments
   * Manage upcoming appointments
   * Track appointment status
 
 * 🏥 **Medical Records**
-
   * Record patient diagnoses
   * Manage treatments and prescriptions
   * Maintain patient medical history
 
 * 💳 **Billing & Payments**
-
   * Create patient bills
   * Track payments
   * Manage outstanding balances
 
 * 🔐 **User Authentication**
-
   * Secure login system
   * Role-based access control
   * Different permissions for administrators and staff
 
 * 📊 **Dashboard**
-
   * Overview of clinic activities
   * Patient statistics
   * Appointment statistics
@@ -74,13 +83,13 @@ Each role can be given permissions based on their responsibilities.
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/yourusername/clinic-management-system.git
+git clone https://github.com/JimmyBiverson/Clinic-Management-System.git
 ```
 
 ### 2. Navigate to the project
 
 ```bash
-cd clinic-management-system
+cd Clinic-Management-System
 ```
 
 ### 3. Install dependencies
@@ -138,7 +147,7 @@ php artisan serve
 Open the application at:
 
 ```text
-http://127.0.0.1:8000
+http://127.0.0.1:8000/home
 ```
 
 ## Database
@@ -170,4 +179,3 @@ The system uses **MySQL** to store information including:
 ## License
 
 This project is intended for educational, portfolio, and demonstration purposes.
-
