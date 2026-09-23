@@ -5,20 +5,20 @@
 
 <div class="row g-3 mb-4">
     <div class="col-md-4">
-        <div class="stat-card" style="background:#0f766e;">
-            <div class="stat-number">{{ $waitingCount }}</div>
+        <div class="stat-card animate-fade-up delay-1" style="background:#0f766e;">
+            <div class="stat-number" data-count="{{ $waitingCount }}">{{ $waitingCount }}</div>
             <div class="stat-label">Patients Waiting</div>
         </div>
     </div>
     <div class="col-md-4">
-        <div class="stat-card" style="background:#334155;">
-            <div class="stat-number">{{ $waitingList->count() ?? 0 }}</div>
+        <div class="stat-card animate-fade-up delay-2" style="background:#334155;">
+            <div class="stat-number" data-count="{{ $waitingList->count() ?? 0 }}">{{ $waitingList->count() ?? 0 }}</div>
             <div class="stat-label">Triaged, Not Consulted</div>
         </div>
     </div>
 </div>
 
-<div class="card">
+<div class="card animate-fade-up delay-3">
     <div class="card-header d-flex justify-content-between align-items-center">
         <span>Waiting List</span>
         <span class="badge text-bg-warning">{{ $waitingCount }} pending</span>

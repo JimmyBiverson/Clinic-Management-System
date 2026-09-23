@@ -5,37 +5,37 @@
 
 <div class="row g-3 mb-4">
     <div class="col-6 col-md-3">
-        <div class="stat-card" style="background:#0f766e;">
-            <div class="stat-number">{{ $todayCount }}</div>
+        <div class="stat-card animate-fade-up delay-1" style="background:#0f766e;">
+            <div class="stat-number" data-count="{{ $todayCount }}">{{ $todayCount }}</div>
             <div class="stat-label">Visits Today</div>
         </div>
     </div>
     <div class="col-6 col-md-3">
-        <div class="stat-card" style="background:#0ea5e9;">
-            <div class="stat-number">{{ $waitingCount }}</div>
+        <div class="stat-card animate-fade-up delay-2" style="background:#0ea5e9;">
+            <div class="stat-number" data-count="{{ $waitingCount }}">{{ $waitingCount }}</div>
             <div class="stat-label">Awaiting Doctor</div>
         </div>
     </div>
     <div class="col-6 col-md-3">
-        <div class="stat-card" style="background:#22c55e;">
-            <div class="stat-number">{{ $completedCount }}</div>
+        <div class="stat-card animate-fade-up delay-3" style="background:#22c55e;">
+            <div class="stat-number" data-count="{{ $completedCount }}">{{ $completedCount }}</div>
             <div class="stat-label">Completed Cases</div>
         </div>
     </div>
 </div>
 
 <div class="row g-3 mb-4">
-    <div class="col-12 col-md-4 d-grid">
+    <div class="col-12 col-md-4 d-grid animate-fade-up delay-2">
         <a href="{{ route('patients.create') }}" class="btn btn-teal btn-lg py-3">Register New Patient</a>
     </div>
-    <div class="col-12 col-md-4 d-grid">
+    <div class="col-12 col-md-4 d-grid animate-fade-up delay-3">
         <a href="{{ route('patients.index') }}" class="btn btn-outline-secondary btn-lg py-3">Find Patient</a>
     </div>
 </div>
 
 <h2 class="h5 text-dark mt-4 mb-3">Today's Visits</h2>
 
-<div class="card">
+<div class="card animate-fade-up delay-4">
     <div class="card-body p-0">
         @if ($todayVisits->isEmpty())
             <div class="text-center text-muted py-4 m-0">

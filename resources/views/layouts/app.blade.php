@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="{{ asset('css/clinic.css') }}">
 </head>
 <body>
+    <script>document.documentElement.classList.add('js');</script>
     @auth
         <nav class="navbar navbar-expand-lg clinic-navbar mb-4">
             <div class="container-lg">
@@ -73,6 +74,48 @@
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+            document.querySelectorAll('.stat-card').forEach((card, i) => {
+                card.style.transitionDelay = prefersReducedMotion ? '0s' : `${i * 80}ms`;
+            });
+
+            const counters = document.querySelectorAll('.stat-number[data-count]');
+            if (!counters.length) return;
+
+            const animate = (el) => {
+                const target = parseFloat(el.dataset.count);
+                const duration = prefersReducedMotion ? 0 : 900;
+                const start = performance.now();
+
+                const step = (now) => {
+                    const progress = Math.min((now - start) / duration, 1);
+                    const eased = 1 - Math.pow(1 - progress, 3);
+                    const value = target * eased;
+                    el.textContent = Number.isInteger(target)
+                        ? Math.round(value).toString()
+                        : value.toFixed(1);
+                    if (progress < 1) requestAnimationFrame(step);
+                };
+
+                requestAnimationFrame(step);
+            };
+
+            const observer = new IntersectionObserver((entries, obs) => {
+                entries.forEach((entry) => {
+                    if (!entry.isIntersecting) return;
+                    const card = entry.target.closest('.stat-card');
+                    if (card) card.classList.add('is-visible');
+                    animate(entry.target);
+                    obs.unobserve(entry.target);
+                });
+            }, { threshold: 0.4 });
+
+            counters.forEach((counter) => observer.observe(counter));
+        });
+    </script>
     @stack('scripts')
 </body>
 </html>
