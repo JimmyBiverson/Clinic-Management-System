@@ -1,0 +1,153 @@
+:root {
+    --clinic-teal: #0f766e;
+    --clinic-teal-dark: #115e59;
+    --clinic-sage: #6b9080;
+    --clinic-cream: #faf8f4;
+}
+
+body {
+    background-color: var(--clinic-cream);
+    color: #334155;
+}
+
+.clinic-navbar {
+    background: linear-gradient(135deg, var(--clinic-teal) 0%, var(--clinic-teal-dark) 100%);
+    box-shadow: 0 2px 10px rgba(15, 118, 110, 0.25);
+}
+
+.clinic-brand {
+    color: #fff;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+}
+
+.clinic-brand:hover {
+    color: #e2f3f0;
+}
+
+.brand-mark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    margin-right: 8px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.18);
+    font-weight: 800;
+}
+
+.clinic-navbar .navbar-toggler {
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+.clinic-navbar .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255,255,255,0.9%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+.clinic-navbar .nav-link {
+    color: #e2f3f0;
+    font-weight: 500;
+}
+
+.clinic-navbar .nav-link:hover {
+    color: #fff;
+}
+
+.role-badge {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    padding: 4px 12px !important;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.card {
+    border: 0;
+    border-radius: 14px;
+    box-shadow: 0 1px 4px rgba(15, 23, 42, 0.08);
+}
+
+.card-header {
+    background: #fff;
+    border-bottom: 1px solid #eef2f7;
+    border-radius: 14px 14px 0 0 !important;
+    font-weight: 700;
+    color: #0f172a;
+}
+
+.btn-teal {
+    background-color: var(--clinic-teal);
+    border-color: var(--clinic-teal);
+    color: #fff;
+}
+
+.btn-teal:hover,
+.btn-teal:focus {
+    background-color: var(--clinic-teal-dark);
+    border-color: var(--clinic-teal-dark);
+    color: #fff;
+}
+
+.stat-card {
+    color: #fff;
+    border-radius: 14px;
+    padding: 1.25rem;
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.15);
+}
+
+.stat-card .stat-number {
+    font-size: 2rem;
+    font-weight: 800;
+    line-height: 1.1;
+}
+
+.stat-card .stat-label {
+    opacity: 0.85;
+    font-weight: 500;
+}
+
+/* Blinking visit-ID indicator used on the doctor's form */
+.visit-pulse {
+    display: inline-block;
+    padding: 2px 12px;
+    border-radius: 20px;
+    background: #fde047;
+    color: #713f12;
+    font-weight: 700;
+    animation: visitPulse 1.2s infinite;
+}
+
+@keyframes visitPulse {
+    0%,
+    100% {
+        box-shadow: 0 0 0 0 rgba(253, 224, 71, 0.7);
+    }
+    50% {
+        box-shadow: 0 0 0 10px rgba(253, 224, 71, 0);
+    }
+}
+
+.section-title {
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    color: var(--clinic-teal);
+    margin-bottom: 0.4rem;
+}
+
+.client-detail {
+    background: #f6f8f7;
+    border-left: 4px solid var(--clinic-teal);
+    border-radius: 0 10px 10px 0;
+    padding: 0.9rem 1.1rem;
+}
+
+table.data-table th {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    color: #64748b;
+}

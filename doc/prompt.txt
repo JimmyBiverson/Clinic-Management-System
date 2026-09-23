@@ -1,0 +1,358 @@
+
+
+📄 PROJECT HANDOVER DOCUMENT — KOYONZO FAMILY CARE CLINIC SYSTEM
+
+1. PROJECT OVERVIEW
+
+A clinic management system that handles
+
+· Patient registration
+· Visits & triage
+· Doctor consultations
+· Prescriptions & pharmacy dispensing
+· Billing & receipts
+· Appointment scheduling with reminders
+· Management reports for the CEODirector
+
+Current State Built in Microsoft Access (Desktop). Migrating to a web-based system for multi-user, remote access.
+
+---
+
+2. USER ROLES
+
+Role Responsibilities
+Receptionist (Staff) Register patients, create visits, view appointments, print receipts
+Triage Nurse Enter vitals (BP, Temp, Pulse, Weight, Height, BMI, Chief Complaint, Lab Tests)
+Doctor View waiting list, add consultation notes, prescribe drugs, set next appointment
+Pharmacist Dispense drugs, mark as billed
+Cashier Generate receipts, accept payment (Cash  M-PESA  Card  Insurance)
+Administrator Manage users, drugs, services, prices, visit types
+CEO  Director View management reports and dashboards
+
+---
+
+3. DATABASE STRUCTURE
+
+3.1 — Patients
+
+Field Type Notes
+PatientID AutoNumber Primary Key
+FullName Text(100) 
+SerialNumber Text(20) Format PAT-YYYY-####
+Phone Text(20) 
+Gender Text(10) Male  Female
+DOB Date Used to calculate age
+Insurance Text(50) NHIF  AAR  Private
+NOKContact Text(50) Next of Kin contact
+RegisteredDate DateTime Auto-set on registration
+
+3.2 — Visits
+
+Field Type Notes
+VisitID AutoNumber Primary Key
+PatientID Number FK → Patients
+VisitDate DateTime 
+VisitType Text(20) Outpatient  Inpatient  Consultation
+VisitService Text(50) e.g., General Consultation
+Doctor Text(50) 
+TriageDone YesNo 
+ConsultationDone YesNo 
+Completed YesNo 
+PrimaryServiceID Number FK → tblServices
+VisitService Text(50) 
+
+3.3 — Triage
+
+Field Type
+TriageID AutoNumber (PK)
+VisitID Number (FK)
+ChiefComplaint Text(255)
+LabTests Text(255)
+LabStatus Text(20)
+BP Text(20)
+Temp Number
+Pulse Number
+Resp Number
+Weight Number
+Height Number
+BMI Number
+
+3.4 — Consultation
+
+Field Type
+ConsultationID AutoNumber (PK)
+VisitID Number (FK)
+History Text(500)
+Examination Text(500)
+Diagnosis Text(500)
+Treatment Text(500)
+Referral YesNo
+Facility Text(100)
+
+3.5 — Prescriptions
+
+Field Type Notes
+PrescriptionID AutoNumber PK
+VisitID Number FK → Visits
+Drug Number FK → tblDrugs
+Quantity Number 
+Dosage Text(50) e.g., 500mg
+Frequency Text(50) e.g., Twice a day
+Duration Text(50) e.g., 5 days
+Status Text(20) Pending  Dispensed
+NextAppointment Date Follow-up date
+
+3.6 — tblDrugs (Master Drug List)
+
+Field Type
+DrugID AutoNumber (PK)
+DrugName Text(100)
+UnitPrice Currency
+CurrentStock Number
+
+3.7 — tblDispensed (Bridge — Handover)
+
+Field Type
+DispensedID AutoNumber (PK)
+PrescriptionID Number (FK)
+ItemID Number (FK → tblDrugs)
+VisitID Number (FK)
+PatientID Number (FK)
+Quantity Number
+DispensedDate DateTime
+DispensedBy Text(50)
+IsBilled YesNo
+
+3.8 — tblReceipt (Billing Header)
+
+Field Type
+ReceiptID AutoNumber (PK)
+ReceiptNo Text(20)
+PatientID Number (FK)
+ReceiptDate DateTime
+SubTotal Currency
+VATAmount Currency
+DiscountAmount Currency
+TotalAmount Currency
+PaymentMethod Text(20)
+TransReference Text(50)
+IsPaid YesNo
+ServedBy Text(50)
+
+3.9 — tblBilling (Billing Lines)
+
+Field Type
+BillingID AutoNumber (PK)
+ReceiptID Number (FK)
+ItemID Number (FK → tblDrugs or tblServices)
+Quantity Number
+UnitPrice Currency
+LineTotal Currency
+TransDate DateTime
+
+3.10 — tblServices (Master Services List)
+
+Field Type
+ServiceID AutoNumber (PK)
+ServiceName Text(100)
+ServiceCategory Text(50)
+ServiceCost Currency
+IsActive YesNo
+
+---
+
+4. THE COMPLETE USER WORKFLOW
+
+STEP 1 Patient Arrives
+
+· Receptionist opens the system → New Patient Registration
+· Enters FullName, Phone, Gender, DOB, Insurance, NOKContact
+· System generates Serial Number automatically (Format PAT-YYYY-####)
+· System creates a Visit for today
+
+STEP 2 Triage
+
+· Nurse opens the Triage screen
+· Enters BP, Temp, Pulse, Resp, Weight, Height, Chief Complaint, Lab Tests
+· System calculates BMI
+· Marks TriageDone = True
+
+STEP 3 Doctor Consultation
+
+· Doctor opens the Doctor's Dashboard
+· Sees the Waiting List (patients with TriageDone = True and ConsultationDone = False)
+· Selects a patient
+· The VisitID field blinks (yellow) to confirm it is linked to the correct patient
+· Enters History, Examination, Diagnosis, Treatment
+· Prescribes drugs (multiple can be added)
+· Sets Next Appointment (optional)
+· Clicks Complete Visit → marks ConsultationDone = True
+
+STEP 4 Pharmacy
+
+· Pharmacist opens the Prescription Queue
+· Sees all prescribed drugs for today
+· Confirms which drugs were given → writes to tblDispensed
+
+STEP 5 Cashier
+
+· Cashier opens the Billing Form
+· Selects the patient
+· Clicks Import Items from Dispensary
+· A dialog shows all unbilled items with numbers
+  ```
+  1  Thomas Wesonga  Ceftriaxone 1g   Qty 5
+  2  Thomas Wesonga  Panadol 500mg    Qty 24
+  3  Thomas Wesonga  General Consultation  Qty 1
+  ```
+· Types 1, 2, 3 → OK
+· System inserts into tblBilling, looks up prices from tblDrugs, calculates LineTotals
+· Marks IsBilled = True on source rows
+· Cashier selects Payment Method (Cash  M-PESA  Card  Insurance)
+· Prints receipt
+
+STEP 6 Management Reports
+
+· CEO opens the Management Report dialog
+· Types a number (1–10) for the report they want
+  ```
+  1  = Drug Summary
+  2  = Visitor List
+  3  = Admitted Patients
+  4  = Patients by Service Category
+  5  = Top 10 Most Prescribed Drugs
+  6  = Doctor Activity
+  7  = Visit Types Distribution
+  8  = Lab Tests Summary
+  9  = Revenue Snapshot
+  10 = All Reports Combined
+  ```
+· Report is generated and copied to clipboard  saved as Excel
+
+STEP 7 Appointments
+
+· Receptionist or Doctor clicks Appointments
+· Types a number (1–6)
+  ```
+  1 = Tomorrow
+  2 = Next 5 days
+  3 = Upcoming (30 days)
+  4 = Missed (60 days)
+  5 = All
+  6 = Custom range
+  ```
+· System shows Upcoming  Attended  Missed
+· Reminder When the doctor opens the dashboard, a popup shows patients with appointments 2 days from now
+
+---
+
+5. KEY BUSINESS LOGIC
+
+5.1 — Serial Number Format
+
+```
+PAT-YYYY-####
+Example PAT-2026-0001
+```
+
+Generated automatically on the first save.
+
+5.2 — Age Calculation
+
+```
+Age = DateDiff(yyyy, DOB, Today) - 1 if birthday has not passed this year
+```
+
+5.3 — Appointment Attendance Detection
+
+· If appointment date is in the future → Upcoming
+· If appointment date is in the past AND a Visit exists within 3 days → Attended
+· If appointment date is in the past AND no Visit exists → Missed
+
+5.4 — Drug Pricing
+
+· Each drug has a price in tblDrugs.UnitPrice
+· When dispensed, price is looked up and stored in tblBilling.UnitPrice
+· LineTotal = Quantity × UnitPrice
+
+5.5 — VAT
+
+· Applied at 16% (configurable)
+· SubTotal + VAT - Discount = TotalAmount
+
+5.6 — Ghost Record Prevention
+
+· A consultation record is only saved if History OR Examination is not empty
+· Otherwise, the save is silently cancelled
+
+---
+
+6. THE KEY FEATURES (For the Developer)
+
+Feature Description
+Waiting List Popup showing patients who have been triaged but not yet consulted
+Blinking VisitID Visual indicator in the consultation form that the form is linked to the correct patient
+Set Next Appointment Doctor sets follow-up date from the prescription form
+Appointment Reminders Auto-popup on Doctor's Dashboard showing appointments in 2 days
+Drug Import Bridge Button on Billing Form that pulls dispensed drugs into the receipt
+Number-Based Dialogs Simple input (type 1, 2, 5) for reports and imports — no complex dropdowns
+Clipboard Output Reports can be copied as plain text for WhatsAppEmail
+Excel Export Reports can be exported to Excel
+PDF Receipts Receipts can be printed as PDF
+Thermal Printer Support 80mm thermal receipt printer (X Printer 80C)
+Management Reports 10 different reports for the CEO
+No Cost Prescription Slip Medical document printed for the patient (no prices shown)
+Cost Receipt Financial document printed for the patient (with prices, VAT, total)
+
+---
+
+7. NON-FUNCTIONAL REQUIREMENTS
+
+Requirement Value
+Multi-user Yes — multiple staff using at once
+Remote Access Optional — via web browser
+Authentication Username + Password per user
+Role-Based Access Yes — different menus per role
+Audit Log Log who did what and when
+Backup Daily automatic backup
+Data Retention 7 years (medical records)
+Response Time Page load  2 seconds
+Mobile-Friendly Optional — for doctors on tablets
+
+---
+
+8. So this is the summary of what you are to build
+
+8.1 — Pages  Screens
+
+1. Login — Username + Password
+2. Dashboard — Stats patients today, waiting, cleared, revenue
+3. Patient Registration — New patient form
+4. Patient Search — By name, phone, serial
+5. Visit Management — Create, view visits
+6. Triage Entry — Vitals + chief complaint
+7. Doctor's Dashboard — Waiting list + consultation + prescriptions
+8. Pharmacy — Dispense queue
+9. Billing  Receipt — Header + line items
+10. Appointments — Set, view, remind
+11. Reports — 10 management reports
+12. Admin — Users, drugs, services, prices
+
+1. Review this document. Confirm every field and workflow is correct.
+2. Gather screenshots from your Access system.
+3. Clarify your budget and timeline.
+4. Send the package to the developer.
+5. Schedule a kickoff meeting to walk through the workflows.
+6. Sign a clear contract covering ownership, support, and data protection.
+
+---
+
+This document is your blueprint. Save it, print it, and share it with confidence.
+
+If you want, I can also produce
+
+· A one-page summary for the developer (elevator pitch).
+· A detailed requirements spec (per screen with exact fields).
+· A sample contract template.
+
+Just tell me which one you want next.
