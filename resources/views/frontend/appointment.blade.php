@@ -5,8 +5,8 @@
 @section('content')
 <div class="page-header">
     <div class="container">
-        <h1>Appointment</h1>
-        <nav class="breadcrumb-wrap">
+        <h1 data-reveal>Appointment</h1>
+        <nav class="breadcrumb-wrap" data-reveal style="--reveal-delay:100">
             <a href="{{ url('/home') }}">Home</a>
             <span>/ Appointment</span>
         </nav>
@@ -15,7 +15,7 @@
 
 <section class="page-content-block">
     <div class="container appointment-wrap">
-        <div class="appointment-box">
+        <div class="appointment-box" data-reveal>
             <h3>Make An Appointment</h3>
             <form class="appointment-form">
                 <div class="radio-group">

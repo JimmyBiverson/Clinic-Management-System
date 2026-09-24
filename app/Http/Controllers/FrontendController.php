@@ -2,11 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Patient;
+use App\Models\Prescription;
+use App\Models\User;
+use App\Models\Visit;
+
 class FrontendController extends Controller
 {
     public function home()
     {
-        return view('frontend.home');
+        return view('frontend.home', [
+            'totalPatients' => Patient::count(),
+            'totalVisits' => Visit::count(),
+            'totalPrescriptions' => Prescription::count(),
+            'totalDoctors' => User::where('role', 'doctor')->count(),
+        ]);
     }
 
     public function doctors()

@@ -5,8 +5,8 @@
 @section('content')
 <div class="page-header">
     <div class="container">
-        <h1>Contact Us</h1>
-        <nav class="breadcrumb-wrap">
+        <h1 data-reveal>Contact Us</h1>
+        <nav class="breadcrumb-wrap" data-reveal style="--reveal-delay:100">
             <a href="{{ url('/home') }}">Home</a>
             <span>/ Contact Us</span>
         </nav>
@@ -15,13 +15,13 @@
 
 <section class="page-content-block">
     <div class="container contact-wrap">
-        <div class="contact-copy">
+        <div class="contact-copy" data-reveal>
             <h2>Contact Us For Help</h2>
             <p>Please Call Us Or Complete The Form Below And We Will Get To You Shortly</p>
             <button class="btn btn-primary btn-lg" type="button"><i class="fa-solid fa-phone"></i> 1-800-400-7400</button>
         </div>
 
-        <form class="contact-form">
+        <form class="contact-form" data-reveal style="--reveal-delay:120">
             <div class="row g-3">
                 <div class="col-md-6">
                     <label>Your Name</label>

@@ -5,8 +5,8 @@
 @section('content')
 <div class="page-header">
     <div class="container">
-        <h1>Blog</h1>
-        <nav class="breadcrumb-wrap">
+        <h1 data-reveal>Blog</h1>
+        <nav class="breadcrumb-wrap" data-reveal style="--reveal-delay:100">
             <a href="{{ url('/home') }}">Home</a>
             <span>/ Blog</span>
         </nav>
@@ -16,21 +16,21 @@
 <section class="page-content-block">
     <div class="container">
         <div class="blog-grid">
-            <article class="blog-card">
+            <article class="blog-card" data-reveal>
                 <div class="blog-image" style="background-image:url('{{ asset('assets/frontend/default/images/img-15.jpg') }}');"></div>
                 <div class="blog-body">
                     <h3>Healthy Habits for Better Heart Care</h3>
                     <p>Learn simple daily routines that support your heart and reduce preventable risks over time.</p>
                 </div>
             </article>
-            <article class="blog-card">
+            <article class="blog-card" data-reveal style="--reveal-delay:100">
                 <div class="blog-image" style="background-image:url('{{ asset('assets/frontend/default/images/dep.jpg') }}');"></div>
                 <div class="blog-body">
                     <h3>Why Preventive Care Matters</h3>
                     <p>Early screenings and regular checkups can help identify underlying issues before they become more serious.</p>
                 </div>
             </article>
-            <article class="blog-card">
+            <article class="blog-card" data-reveal style="--reveal-delay:200">
                 <div class="blog-image" style="background-image:url('{{ asset('assets/frontend/default/images/img-1.jpg') }}');"></div>
                 <div class="blog-body">
                     <h3>Supporting Pediatric Wellness</h3>

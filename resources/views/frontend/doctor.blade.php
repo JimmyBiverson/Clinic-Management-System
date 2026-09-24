@@ -5,8 +5,8 @@
 @section('content')
 <div class="page-header">
     <div class="container">
-        <h1>Doctors</h1>
-        <nav class="breadcrumb-wrap">
+        <h1 data-reveal>Doctors</h1>
+        <nav class="breadcrumb-wrap" data-reveal style="--reveal-delay:100">
             <a href="{{ url('/home') }}">Home</a>
             <span>/ Doctors</span>
         </nav>
@@ -16,7 +16,7 @@
 <section class="page-content-block">
     <div class="container">
         <div class="profile-layout">
-            <aside class="sidebar-panel">
+            <aside class="sidebar-panel" data-reveal>
                 <h3>Doctors Of</h3>
                 <ul class="side-links">
                     <li><a href="{{ url('/home/doctors') }}">All Departments</a></li>
@@ -24,7 +24,7 @@
                 </ul>
             </aside>
 
-            <div class="doctor-profile-box">
+            <div class="doctor-profile-box" data-reveal style="--reveal-delay:100">
                 <div class="doctor-profile-header">
                     <img src="{{ asset('assets/frontend/default/images/doctors.png') }}" alt="Dr. Sarah Lee">
                     <div>
