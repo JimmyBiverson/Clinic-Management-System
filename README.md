@@ -68,6 +68,39 @@ Two accounts are created by the seeder (`php artisan db:seed`):
 
 ---
 
+## Using the system (end-user quick guide)
+
+1. **Open the clinic system** — visit `http://<server>/` (you are redirected to the login screen).
+2. **Log in** — Staff use username `staff`, Doctor uses username `doctor` (or the seeded email).
+3. **Staff — register / open a visit:** *Patients → Search Patients → Register Patient*. The serial number `PAT-YYYY-####` is generated automatically and a first visit is created.
+4. **Staff — existing patient:** *Patients → search → open the record → New Visit* (Visit #2, #3, …).
+5. **Staff — triage + lab:** from the patient's record click *Triage Entry* → enter Chief Complaint, vitals (BMI auto-calculates) and Lab Tests → *Save Triage*. The patient now appears on the doctor's **Waiting List**.
+6. **Doctor — consult:** Doctor dashboard → *Waiting List* → pick a patient (the blinking **Visit ID** confirms the right record) → enter History, Examination, Diagnosis, Treatment, add prescription drug lines and an optional follow-up date → *Complete Visit*.
+7. **Staff — dispense:** reopen the patient's record → the doctor's consultation and prescription are visible → *Toggle* each drug to **Dispensed** when handed out.
+8. **Log out** — user menu → *Log Out*.
+
+---
+
+## Public website (frontend)
+
+The clinic also ships a public marketing website at **`/home`**:
+
+| Page | URL |
+|------|-----|
+| Home (hero, stats, services, departments, doctors) | `/home` |
+| Doctors list & profile | `/home/doctors`, `/home/doctors/1` |
+| Department | `/home/department/1` |
+| About Us | `/home/about_us` |
+| Book Appointment | `/home/appointment` |
+| Blog | `/home/blog` |
+| Contact Us | `/home/contact_us` |
+
+The public pages feature a **responsive mobile menu (hamburger)**, scroll-triggered **entrance animations**, **count-up stat numbers** (fed by real database totals: patients, visits, prescriptions, doctors) and modern hover effects (card lifts, button shine, nav underlines) — all disabled automatically for users with `prefers-reduced-motion`.
+
+> **Note:** "Book Appointment" on the public site is a booking-request form placeholder for now; the clinic-side appointment scheduling module is on the roadmap below.
+
+---
+
 ## Pages / screens
 
 | Screen | Route | Role |
