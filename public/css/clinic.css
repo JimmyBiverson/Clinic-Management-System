@@ -103,6 +103,13 @@ body {
     transform: translateY(0) scale(0.98);
 }
 
+.btn-xs {
+    padding: 0.15rem 0.5rem;
+    font-size: 0.75rem;
+    line-height: 1.5;
+    border-radius: 0.25rem;
+}
+
 .stat-card {
     color: #fff;
     border-radius: 14px;
@@ -240,5 +247,110 @@ table.data-table tbody tr:hover {
         transition: none !important;
         opacity: 1 !important;
         transform: none !important;
+    }
+}
+
+/* ---------- Mobile / responsiveness polish ---------- */
+
+.navbar-brand {
+    font-size: 1.05rem;
+}
+
+.clinic-brand .brand-mark {
+    width: 30px;
+    height: 30px;
+}
+
+.clinic-navbar .navbar-nav {
+    padding: 0.5rem 0 0.25rem;
+}
+
+.clinic-navbar .nav-link {
+    padding-top: 0.4rem;
+    padding-bottom: 0.4rem;
+    position: relative;
+}
+
+.clinic-navbar .nav-link::after {
+    content: '';
+    position: absolute;
+    left: 0.72rem;
+    right: 0.72rem;
+    bottom: 6px;
+    height: 2px;
+    border-radius: 2px;
+    background: #fff;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.22s ease;
+}
+
+.clinic-navbar .nav-link:hover::after {
+    transform: scaleX(1);
+}
+
+main {
+    padding-top: 0.25rem;
+}
+
+small,
+.fs-6 .small {
+    line-height: 1.35;
+}
+
+table.data-table {
+    min-width: 560px;
+}
+
+td {
+    word-break: break-word;
+}
+
+h1.display-6,
+.h3 {
+    font-size: clamp(1.25rem, 4vw, 1.75rem);
+}
+
+.stat-card {
+    padding: 1rem;
+}
+
+.stat-card .stat-number {
+    font-size: clamp(1.6rem, 6vw, 2rem);
+}
+
+@media (max-width: 575.98px) {
+    .container-lg > .alert {
+        margin-left: -0.5rem;
+        margin-right: -0.5rem;
+        border-radius: 0;
+    }
+
+    .client-detail {
+        padding: 0.7rem 0.85rem;
+    }
+
+    .card-body {
+        padding: 1rem;
+    }
+
+    .btn-lg {
+        font-size: 1rem;
+    }
+
+    .navbar-brand {
+        font-size: 0.98rem;
+    }
+
+    .clinic-brand .brand-mark {
+        width: 28px;
+        height: 28px;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 320px) {
+    .stat-card .stat-number {
+        font-size: 1.4rem;
     }
 }

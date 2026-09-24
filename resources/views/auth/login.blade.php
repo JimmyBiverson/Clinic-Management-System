@@ -12,6 +12,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            padding: 1.25rem;
             background: linear-gradient(135deg, #0f766e 0%, #134e4a 100%);
         }
         .login-card {
@@ -33,9 +34,25 @@
             font-size: 1.6rem;
             font-weight: 800;
         }
+        .js .login-card {
+            opacity: 0;
+            transform: translateY(18px);
+            animation: fadeInUp 0.6s ease forwards;
+        }
+        .js .login-logo {
+            animation: visitPulse 2s ease infinite;
+        }
+        @media (max-width: 575.98px) {
+            body {
+                padding: 0.75rem;
+                align-items: flex-start;
+                padding-top: 6vh;
+            }
+        }
     </style>
 </head>
 <body>
+    <script>document.documentElement.classList.add('js');</script>
     <div class="card login-card">
         <div class="card-body p-4 p-md-5">
             <div class="text-center mb-4">

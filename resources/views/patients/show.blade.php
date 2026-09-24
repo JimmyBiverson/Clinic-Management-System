@@ -89,36 +89,38 @@
                         @if ($visit->prescriptions->isEmpty())
                             <div class="text-muted small">No prescriptions.</div>
                         @else
-                            <table class="table table-sm small align-middle mb-0">
-                                <thead>
-                                    <tr>
-                                        <th>Drug</th>
-                                        <th>Dosage</th>
-                                        <th>Freq</th>
-                                        <th>Dur</th>
-                                        <th class="text-end">Status</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($visit->prescriptions as $p)
+                            <div class="table-responsive">
+                                <table class="table table-sm small align-middle mb-0">
+                                    <thead>
                                         <tr>
-                                            <td class="fw-semibold">{{ $p->drug_name }}</td>
-                                            <td>{{ $p->dosage ?? '—' }}</td>
-                                            <td>{{ $p->frequency ?? '—' }}</td>
-                                            <td>{{ $p->duration ?? '—' }}</td>
-                                            <td class="text-end">
-                                                <span class="badge text-bg-{{ $p->status === 'Dispensed' ? 'success' : 'warning' }}">{{ $p->status }}</span>
-                                                @if (auth()->user()->isStaff() && $visit->consultation)
-                                                    <form method="POST" action="{{ route('prescriptions.dispense', $p) }}" class="d-inline ms-1">
-                                                        @csrf
-                                                        <button type="submit" class="btn btn-xs btn-outline-secondary">Toggle</button>
-                                                    </form>
-                                                @endif
-                                            </td>
+                                            <th>Drug</th>
+                                            <th>Dosage</th>
+                                            <th>Freq</th>
+                                            <th>Dur</th>
+                                            <th class="text-end">Status</th>
                                         </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($visit->prescriptions as $p)
+                                            <tr>
+                                                <td class="fw-semibold">{{ $p->drug_name }}</td>
+                                                <td>{{ $p->dosage ?? '—' }}</td>
+                                                <td>{{ $p->frequency ?? '—' }}</td>
+                                                <td>{{ $p->duration ?? '—' }}</td>
+                                                <td class="text-end">
+                                                    <span class="badge text-bg-{{ $p->status === 'Dispensed' ? 'success' : 'warning' }}">{{ $p->status }}</span>
+                                                    @if (auth()->user()->isStaff() && $visit->consultation)
+                                                        <form method="POST" action="{{ route('prescriptions.dispense', $p) }}" class="d-inline ms-1">
+                                                            @csrf
+                                                            <button type="submit" class="btn btn-xs btn-outline-secondary">Toggle</button>
+                                                        </form>
+                                                    @endif
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
                         @endif
                     </div>
                 </div>
