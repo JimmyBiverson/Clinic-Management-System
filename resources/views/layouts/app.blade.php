@@ -37,6 +37,9 @@
                             </li>
                         @endif
                         <li class="nav-item">
+                            <a class="nav-link" href="{{ url('/home') }}" target="_blank" rel="noopener">Website</a>
+                        </li>
+                        <li class="nav-item">
                             <span class="nav-link role-badge text-uppercase">{{ auth()->user()->role }}</span>
                         </li>
                         <li class="nav-item">

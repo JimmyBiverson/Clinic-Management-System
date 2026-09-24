@@ -97,6 +97,9 @@
                     <button type="submit" class="btn btn-teal btn-lg">Sign In</button>
                 </div>
             </form>
+            <div class="text-center mt-3">
+                <a href="{{ url('/home') }}" class="text-decoration-none small fw-semibold" style="color:#0f766e;">← Back to website</a>
+            </div>
         </div>
     </div>
 </body>
