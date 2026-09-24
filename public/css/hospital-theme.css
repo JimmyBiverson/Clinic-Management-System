@@ -925,3 +925,312 @@ textarea {
         font-size: 1.6rem;
     }
 }
+
+/* ==========================================================
+   Frontend entrance animations, count-up + modern hover effects
+   ========================================================== */
+
+.js [data-reveal] {
+    opacity: 0;
+    transform: translateY(26px);
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    transition-delay: calc(var(--reveal-delay, 0) * 1ms);
+    will-change: opacity, transform;
+}
+
+.js [data-reveal].in-view {
+    opacity: 1;
+    transform: none;
+}
+
+/* Hero entrance (load animation) */
+.js .hero-inner h2,
+.js .hero-inner p,
+.js .hero-cta {
+    opacity: 0;
+    transform: translateY(28px);
+    animation: heroRise 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.js .hero-inner p {
+    animation-delay: 0.15s;
+}
+
+.js .hero-cta {
+    animation-delay: 0.3s;
+}
+
+@keyframes heroRise {
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+.hero-cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-top: 30px;
+}
+
+.hero-cta .btn {
+    padding: 16px 28px;
+    border-radius: 6px;
+}
+
+.btn-outline-light {
+    background: transparent;
+    color: var(--white);
+    border: 2px solid rgba(255, 255, 255, 0.85);
+}
+
+.btn-outline-light:hover {
+    background: var(--white);
+    color: var(--primary-dark);
+    border-color: var(--white);
+}
+
+/* Nav link underline */
+.nav-list a {
+    position: relative;
+}
+
+.nav-list a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -5px;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--primary);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.28s ease;
+}
+
+.nav-list a:hover::after {
+    transform: scaleX(1);
+}
+
+/* Hamburger toggle */
+.nav-toggle {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 5px;
+    width: 44px;
+    height: 44px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--white);
+    cursor: pointer;
+    margin-left: auto;
+}
+
+.nav-toggle span {
+    width: 22px;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--navy);
+    transition: transform 0.28s ease, opacity 0.2s ease;
+}
+
+.nav-toggle.open span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+}
+
+.nav-toggle.open span:nth-child(2) {
+    opacity: 0;
+}
+
+.nav-toggle.open span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+}
+
+@media (max-width: 978px) {
+    .nav-wrap {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+    }
+
+    .nav-toggle {
+        display: flex;
+    }
+
+    .nav-list {
+        display: none;
+        order: 3;
+        width: 100%;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 2px;
+        padding: 14px 0 4px;
+        border-top: 1px solid var(--border);
+    }
+
+    .nav-wrap.nav-open .nav-list {
+        display: flex;
+        animation: menuDrop 0.3s ease;
+    }
+
+    .nav-list a {
+        display: block;
+        padding: 12px 4px;
+        font-size: 1rem;
+        border-bottom: 1px solid rgba(10, 44, 68, 0.06);
+    }
+
+    @keyframes menuDrop {
+        from {
+            opacity: 0;
+            transform: translateY(-8px);
+        }
+        to {
+            opacity: 1;
+            transform: none;
+        }
+    }
+}
+
+/* Card lifts & modern hovers */
+.info-card,
+.service-card,
+.doctor-card,
+.blog-card,
+.department-card {
+    transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.32s ease;
+}
+
+.info-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(18, 45, 66, 0.12);
+}
+
+.service-card:hover,
+.blog-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 22px 44px rgba(10, 44, 68, 0.14);
+}
+
+.doctor-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 24px 48px rgba(10, 44, 68, 0.16);
+}
+
+.department-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 22px 44px rgba(10, 44, 68, 0.2);
+}
+
+.icon-wrap {
+    transition: transform 0.3s ease, background 0.3s ease, color 0.3s ease;
+}
+
+.service-card:hover .icon-wrap {
+    transform: scale(1.1) rotate(-6deg);
+    background: var(--primary);
+    color: var(--white);
+}
+
+.doctor-profile-link {
+    transition: background 0.25s ease, transform 0.25s ease;
+}
+
+.doctor-profile-link:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+}
+
+/* Button shine sweep */
+.btn {
+    position: relative;
+    overflow: hidden;
+}
+
+.btn::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -130%;
+    height: 100%;
+    width: 55%;
+    background: linear-gradient(110deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+    transform: skewX(-20deg);
+    transition: left 0.55s ease;
+}
+
+.btn:hover::after {
+    left: 135%;
+}
+
+/* Stats band with count-up numbers */
+.stats-band {
+    background: linear-gradient(135deg, #0a5f86 0%, #072a3d 100%);
+    color: var(--white);
+    padding: 58px 0;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 26px;
+    text-align: center;
+}
+
+.stat-item .icon {
+    font-size: 1.6rem;
+    color: rgba(255, 255, 255, 0.85);
+    margin-bottom: 8px;
+}
+
+.stat-item .number {
+    font-size: 2.9rem;
+    font-weight: 900;
+    font-family: 'Playfair Display', serif;
+    line-height: 1.1;
+}
+
+.stat-item .label {
+    color: rgba(255, 255, 255, 0.85);
+    font-weight: 700;
+    margin-top: 6px;
+}
+
+@media (max-width: 978px) {
+    .stats-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 640px) {
+    .stats-grid {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+    .stat-item .number {
+        font-size: 2.2rem;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation: none !important;
+        transition: none !important;
+        scroll-behavior: auto !important;
+    }
+
+    .js [data-reveal],
+    .js .hero-inner h2,
+    .js .hero-inner p,
+    .js .hero-cta {
+        opacity: 1;
+        transform: none;
+    }
+}
